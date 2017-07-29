@@ -26,7 +26,17 @@ public class Checkin {
 	private POI poi;
 	private Date time;
 	private int offset;
+	private boolean homeCheckin = false;
 	
+	
+	public boolean isHomeCheckin() {
+		return homeCheckin;
+	}
+
+	public void setHomeCheckin(boolean homeCheckin) {
+		this.homeCheckin = homeCheckin;
+	}
+
 	public static void load(String file){
 		try {
 			BufferedReader reader =new BufferedReader(new FileReader(file));

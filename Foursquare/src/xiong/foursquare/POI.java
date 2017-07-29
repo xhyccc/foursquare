@@ -12,6 +12,8 @@ import java.util.Set;
 
 public class POI {
 	private static HashMap<String, POI> POIS = new HashMap<String, POI>();
+	private static HashMap<String, Set<POI>> POIbyTypes = new HashMap<String, Set<POI>>();
+	private static HashMap<City, HashMap<String, Set<POI>>> POIbyCityTypes = new HashMap<City, HashMap<String, Set<POI>>>();
 	private static long counter = 0;
 
 	public static POI queryByPOI(String pid) {
@@ -27,17 +29,17 @@ public class POI {
 	private City city;
 	private String co;
 
-	public static boolean isExist(String vid){
+	public static boolean isExist(String vid) {
 		return POIS.containsKey(vid);
 	}
-	
+
 	public static void load(String file, String co) {
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader(file));
 			String ln = reader.readLine();
 			while (ln != null) {
 				String[] lns = ln.split("\t");
-				if(lns[4].equals(co))
+				if (lns[4].equals(co))
 					new POI(lns[0], lns[3], lns[4], Double.parseDouble(lns[1]), Double.parseDouble(lns[2]));
 				ln = reader.readLine();
 			}
@@ -46,6 +48,15 @@ public class POI {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public Set<Checkin> getHomeCheckins(){
+		Set<Checkin> hcks=new HashSet<Checkin>();
+		for(Checkin ck:this.poiCheckins){
+			if(ck.isHomeCheckin())
+				hcks.add(ck);
+		}
+		return hcks;
 	}
 
 	public POI(String vID, String vType, String co, double lon, double lat) {
@@ -61,6 +72,17 @@ public class POI {
 		this.city.addPOI(this);
 		// System.out.println(this.venueType+"\t"+this.city.getCityName());
 		System.out.println((counter++) + " POI loaded");
+		if (!POIbyTypes.containsKey(this.venueType)) {
+			POIbyTypes.put(this.venueType, new HashSet<POI>());
+		}
+		POIbyTypes.get(this.venueType).add(this);
+		if(!POIbyCityTypes.containsKey(this.city)){
+			POIbyCityTypes.put(this.city, new HashMap<String,Set<POI>>());
+		}
+		if(!POIbyCityTypes.get(this.city).containsKey(this.venueType)){
+			POIbyCityTypes.get(this.city).put(this.venueType, new HashSet<POI>());
+		}
+		POIbyCityTypes.get(this.city).get(this.venueType).add(this);
 	}
 
 	public static Set<POI> filterByCity(List<City> cities, Collection<POI> venues) {

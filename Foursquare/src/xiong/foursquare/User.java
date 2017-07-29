@@ -11,7 +11,7 @@ public class User {
 	private static HashMap<String, User> users = new HashMap<String, User>();
 
 	public static User queryByUser(String uid) {
-		if(users.containsKey(uid))
+		if (users.containsKey(uid))
 			return users.get(uid);
 		else
 			return new User(uid);
@@ -22,24 +22,25 @@ public class User {
 	private Set<Checkin> userCheckins = new HashSet<Checkin>();
 
 	public User(String userID) {
-	//	synchronized (users) {
-			users.put(userID, this);
-	//	}
+		// synchronized (users) {
+		users.put(userID, this);
+		// }
 		this.userID = userID;
-//		System.out.println(this.userID+"\t built");
+		// System.out.println(this.userID+"\t built");
 	}
 
 	public void addCheckin(Checkin ck) {
-	//	if (!this.userCheckins.contains(ck)) {
-			this.userCheckins.add(ck);
-	//	}
+		// if (!this.userCheckins.contains(ck)) {
+		this.userCheckins.add(ck);
+		// }
 	}
-	
-	public static void finInit(){
-		int index=1;
-		for(User u:users.values()){
+
+	public static void finInit() {
+		int index = 1;
+		for (User u : users.values()) {
 			u.searchHomeCity();
-			System.out.println((index++)+" users loaded with "+u.getUserCheckins().size()+" checkins");
+			System.out.println((index++) + " users loaded with " + u.getUserCheckins().size() + " checkins "
+					+ u.geHomeCheckins().size() + "home-checkins");
 		}
 	}
 
@@ -85,12 +86,14 @@ public class User {
 	public void setUserCheckins(Set<Checkin> userCheckins) {
 		this.userCheckins = userCheckins;
 	}
-	
-	public Set<Checkin> getUserHomeCity(){
+
+	public Set<Checkin> geHomeCheckins() {
 		Set<Checkin> hcks = new HashSet<Checkin>();
-		for(Checkin ck:this.userCheckins){
-			if(ck.getCity().equals(this.homeCity))
+		for (Checkin ck : this.userCheckins) {
+			if (ck.getCity().equals(this.homeCity)) {
 				hcks.add(ck);
+				ck.setHomeCheckin(true);
+			}
 		}
 		return hcks;
 	}
