@@ -9,7 +9,7 @@ public class Loader {
 		
 		System.out.println("POI Loading");
 
-		POI.load("C:\\Users\\xiongha\\Desktop\\foursquare\\dataset_TIST2015\\dataset_TIST2015_POIs.txt");
+		POI.load("C:\\Users\\xiongha\\Desktop\\foursquare\\dataset_TIST2015\\dataset_TIST2015_POIs.txt", "US");
 		
 		System.out.println("Checkin Loading");
 

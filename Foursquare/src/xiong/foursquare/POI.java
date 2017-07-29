@@ -27,13 +27,18 @@ public class POI {
 	private City city;
 	private String co;
 
-	public static void load(String file) {
+	public static boolean isExist(String vid){
+		return POIS.containsKey(vid);
+	}
+	
+	public static void load(String file, String co) {
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader(file));
 			String ln = reader.readLine();
 			while (ln != null) {
 				String[] lns = ln.split("\t");
-				new POI(lns[0], lns[3], lns[4], Double.parseDouble(lns[1]), Double.parseDouble(lns[2]));
+				if(lns[4].equals(co))
+					new POI(lns[0], lns[3], lns[4], Double.parseDouble(lns[1]), Double.parseDouble(lns[2]));
 				ln = reader.readLine();
 			}
 			reader.close();

@@ -34,7 +34,8 @@ public class Checkin {
 			int lcon = 0;
 			while(ln!=null){
 				String[] lns = ln.split("\t");
-				new Checkin(lns[0],lns[1],lns[2],lns[3]);
+				if(POI.isExist(lns[1]))
+					new Checkin(lns[0],lns[1],lns[2],lns[3]);
 				ln = reader.readLine();
 				lcon++;
 			}
