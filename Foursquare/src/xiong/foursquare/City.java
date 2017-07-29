@@ -5,7 +5,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class City {
 	private static HashMap<Integer, City> cities = new HashMap<Integer, City>();
@@ -14,7 +16,7 @@ public class City {
 	private String cityName;
 	private String countryName;
 	private String cityType;
-	private List<Checkin> cityCheckins = new ArrayList<Checkin>();
+	private Set<POI> cityPOIs = new HashSet<POI>();
 	private double lon;
 	private double lat;
 	private String co;
@@ -63,8 +65,8 @@ public class City {
 		return nearest;
 	}
 
-	public void addCheckin(Checkin ck) {
-		this.cityCheckins.add(ck);
+	public void addPOI(POI ck) {
+		this.cityPOIs.add(ck);
 	}
 
 	private static double deg2rad(double deg) {
@@ -115,12 +117,12 @@ public class City {
 		this.cityType = cityType;
 	}
 
-	public List<Checkin> getCityCheckins() {
-		return cityCheckins;
+	public Set<POI> getCityPOIs() {
+		return cityPOIs;
 	}
 
-	public void setCityCheckins(List<Checkin> cityCheckins) {
-		this.cityCheckins = cityCheckins;
+	public void setCityCheckins(Set<POI> cityPOIs) {
+		this.cityPOIs = cityPOIs;
 	}
 
 	public double getLon() {

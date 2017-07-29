@@ -58,7 +58,6 @@ public class Checkin {
 		this.user=User.queryByUser(this.userID);
 		this.user.addCheckin(this);
 		this.city = this.poi.getCity();
-		this.city.addCheckin(this);
 	}
 	
 	public static List<Checkin> filterByUserCities(List<City> cities, Collection<Checkin> ckns){

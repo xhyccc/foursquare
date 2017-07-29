@@ -6,18 +6,21 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class POI {
 	private static HashMap<String, POI> POIS = new HashMap<String, POI>();
 	private static long counter = 0;
+
 	public static POI queryByPOI(String pid) {
 		return POIS.get(pid);
 	}
 
 	private String venueID;
 	private String inCity;
-	private List<Checkin> poiCheckins = new ArrayList<Checkin>();
+	private Set<Checkin> poiCheckins = new HashSet<Checkin>();
 	private String venueType;
 	private double lon;
 	private double lat;
@@ -41,32 +44,33 @@ public class POI {
 	}
 
 	public POI(String vID, String vType, String co, double lon, double lat) {
-	//	synchronized (POIS) {
-			POIS.put(vID, this);
-	//	}
+		// synchronized (POIS) {
+		POIS.put(vID, this);
+		// }
 		this.venueID = vID;
 		this.venueType = vType;
 		this.lat = lat;
 		this.lon = lon;
 		this.co = co;
 		this.city = City.nearestCity(this.lon, this.lat, this.co);
+		this.city.addPOI(this);
 		// System.out.println(this.venueType+"\t"+this.city.getCityName());
-		System.out.println((counter++)+" POI loaded");
+		System.out.println((counter++) + " POI loaded");
 	}
 
-	public static List<POI> filterByCity(List<City> cities, Collection<POI> venues) {
-		List<POI> vs = new ArrayList<POI>();
+	public static Set<POI> filterByCity(List<City> cities, Collection<POI> venues) {
+		Set<POI> vs = new HashSet<POI>();
 		for (POI v : venues) {
-			if (cities.contains(v.city) && !vs.contains(v))
+			if (cities.contains(v.city))
 				vs.add(v);
 		}
 		return vs;
 	}
 
 	public void addCheckin(Checkin ck) {
-		if (!this.poiCheckins.contains(ck)) {
-			this.poiCheckins.add(ck);
-		}
+		// if (!this.poiCheckins.contains(ck)) {
+		this.poiCheckins.add(ck);
+		// }
 	}
 
 	public String getVenueID() {
@@ -85,11 +89,11 @@ public class POI {
 		this.inCity = inCity;
 	}
 
-	public List<Checkin> getPoiCheckins() {
+	public Set<Checkin> getPoiCheckins() {
 		return poiCheckins;
 	}
 
-	public void setPoiCheckins(List<Checkin> poiCheckins) {
+	public void setPoiCheckins(Set<Checkin> poiCheckins) {
 		this.poiCheckins = poiCheckins;
 	}
 

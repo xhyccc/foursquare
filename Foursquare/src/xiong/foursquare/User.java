@@ -3,7 +3,9 @@ package xiong.foursquare;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class User {
 	private static HashMap<String, User> users = new HashMap<String, User>();
@@ -17,7 +19,7 @@ public class User {
 
 	private String userID;
 	private City homeCity;
-	private List<Checkin> userCheckins = new ArrayList<Checkin>();
+	private Set<Checkin> userCheckins = new HashSet<Checkin>();
 
 	public User(String userID) {
 	//	synchronized (users) {
@@ -28,9 +30,9 @@ public class User {
 	}
 
 	public void addCheckin(Checkin ck) {
-		if (!this.userCheckins.contains(ck)) {
+	//	if (!this.userCheckins.contains(ck)) {
 			this.userCheckins.add(ck);
-		}
+	//	}
 	}
 	
 	public static void finInit(){
@@ -74,11 +76,11 @@ public class User {
 		this.homeCity = homeCity;
 	}
 
-	public List<Checkin> getUserCheckins() {
+	public Set<Checkin> getUserCheckins() {
 		return userCheckins;
 	}
 
-	public void setUserCheckins(List<Checkin> userCheckins) {
+	public void setUserCheckins(Set<Checkin> userCheckins) {
 		this.userCheckins = userCheckins;
 	}
 
