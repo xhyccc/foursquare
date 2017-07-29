@@ -26,7 +26,7 @@ public class User {
 			users.put(userID, this);
 	//	}
 		this.userID = userID;
-		System.out.println(this.userID+"\t built");
+//		System.out.println(this.userID+"\t built");
 	}
 
 	public void addCheckin(Checkin ck) {
@@ -36,8 +36,10 @@ public class User {
 	}
 	
 	public static void finInit(){
+		int index=1;
 		for(User u:users.values()){
 			u.searchHomeCity();
+			System.out.println((index++)+" users loaded with "+u.getUserCheckins().size()+" checkins");
 		}
 	}
 
@@ -82,6 +84,15 @@ public class User {
 
 	public void setUserCheckins(Set<Checkin> userCheckins) {
 		this.userCheckins = userCheckins;
+	}
+	
+	public Set<Checkin> getUserHomeCity(){
+		Set<Checkin> hcks = new HashSet<Checkin>();
+		for(Checkin ck:this.userCheckins){
+			if(ck.getCity().equals(this.homeCity))
+				hcks.add(ck);
+		}
+		return hcks;
 	}
 
 }

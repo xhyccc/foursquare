@@ -53,7 +53,7 @@ public class City {
 		City nearest = null;
 		for (City city : cities.values()) {
 			// if (city.co.equals(co)) {
-			double dis = distance(city.getLat(), city.lon, lat, lon, "K");
+			double dis = distance(city.getLat(), city.getLon(), lat, lon, "K");
 			if (dis < minDis) {
 				minDis = dis;
 				nearest = city;

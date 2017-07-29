@@ -31,10 +31,12 @@ public class Checkin {
 		try {
 			BufferedReader reader =new BufferedReader(new FileReader(file));
 			String ln = reader.readLine();
+			int lcon = 0;
 			while(ln!=null){
 				String[] lns = ln.split("\t");
 				new Checkin(lns[0],lns[1],lns[2],lns[3]);
 				ln = reader.readLine();
+				lcon++;
 			}
 			reader.close();
 		} catch (IOException | NumberFormatException | ParseException e) {
