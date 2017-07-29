@@ -15,6 +15,7 @@ public class City {
 	private String countryName;
 	private String cityType;
 	private Set<POI> cityPOIs = new HashSet<POI>();
+	private Set<User> cityUsers = new HashSet<User>();
 	private double lon;
 	private double lat;
 	private String co;
@@ -139,4 +140,14 @@ public class City {
 		this.lat = lat;
 	}
 
+	public Set<User> getCityUsers() {
+		return cityUsers;
+	}
+
+	public void setCityUsers(Set<User> cityUsers) {
+		this.cityUsers = cityUsers;
+	}
+	public void addUser(User u){
+		this.cityUsers.add(u);
+	}
 }

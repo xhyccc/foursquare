@@ -39,6 +39,7 @@ public class User {
 		int index = 1;
 		for (User u : users.values()) {
 			u.searchHomeCity();
+			u.getHomeCity().addUser(u);
 			System.out.println((index++) + " users loaded with " + u.getUserCheckins().size() + " checkins "
 					+ u.geHomeCheckins().size() + "home-checkins");
 		}

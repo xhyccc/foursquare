@@ -12,8 +12,8 @@ import java.util.Set;
 
 public class POI {
 	private static HashMap<String, POI> POIS = new HashMap<String, POI>();
-	private static HashMap<String, Set<POI>> POIbyTypes = new HashMap<String, Set<POI>>();
-	private static HashMap<City, HashMap<String, Set<POI>>> POIbyCityTypes = new HashMap<City, HashMap<String, Set<POI>>>();
+	public static HashMap<String, Set<POI>> POIbyTypes = new HashMap<String, Set<POI>>();
+	public static HashMap<City, HashMap<String, Set<POI>>> POIbyCityTypes = new HashMap<City, HashMap<String, Set<POI>>>();
 	private static long counter = 0;
 
 	public static POI queryByPOI(String pid) {
@@ -28,6 +28,14 @@ public class POI {
 	private double lat;
 	private City city;
 	private String co;
+	
+	public static Set<Checkin> getHomeCheckins(Set<POI> vs){
+		Set<Checkin> hcks=new HashSet<Checkin>();
+		for(POI v:vs){
+			hcks.addAll(v.getHomeCheckins());
+		}
+		return hcks;
+	}
 
 	public static boolean isExist(String vid) {
 		return POIS.containsKey(vid);
