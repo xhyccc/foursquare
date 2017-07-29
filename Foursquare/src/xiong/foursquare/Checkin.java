@@ -1,18 +1,17 @@
 package xiong.foursquare;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Locale;
+import java.util.Set;
 
 public class Checkin {
 	public static DateFormat inputFormat = new SimpleDateFormat(
@@ -60,8 +59,8 @@ public class Checkin {
 		this.city = this.poi.getCity();
 	}
 	
-	public static List<Checkin> filterByUserCities(List<City> cities, Collection<Checkin> ckns){
-		List<Checkin> cks = new ArrayList<Checkin>();
+	public static Set<Checkin> filterByUserCities(Set<City> cities, Collection<Checkin> ckns){
+		Set<Checkin> cks = new HashSet<Checkin>();
 		for(Checkin ck:ckns){
 			if(cities.contains(ck.city)&&!cks.contains(ck))
 				cks.add(ck);
@@ -69,8 +68,8 @@ public class Checkin {
 		return cks;
 	}
 	
-	public static List<Checkin> filterByUserIDs(List<String> uids, Collection<Checkin> ckns){
-		List<Checkin> cks = new ArrayList<Checkin>();
+	public static Set<Checkin> filterByUserIDs(Set<String> uids, Collection<Checkin> ckns){
+		Set<Checkin> cks = new HashSet<Checkin>();
 		for(Checkin ck:ckns){
 			if(uids.contains(ck.userID)&&!cks.contains(ck))
 				cks.add(ck);
@@ -78,8 +77,8 @@ public class Checkin {
 		return cks;
 	}
 	
-	public static List<Checkin> filterByVenueIDs(List<String> vids, Collection<Checkin> ckns){
-		List<Checkin> cks = new ArrayList<Checkin>();
+	public static Set<Checkin> filterByVenueIDs(Set<String> vids, Collection<Checkin> ckns){
+		Set<Checkin> cks = new HashSet<Checkin>();
 		for(Checkin ck:ckns){
 			if(vids.contains(ck.venueID)&&!cks.contains(ck))
 				cks.add(ck);
@@ -87,8 +86,8 @@ public class Checkin {
 		return cks;
 	}
 	
-	public static List<Checkin> filterByHours(List<Integer> hours, Collection<Checkin> ckns){
-		List<Checkin> cks = new ArrayList<Checkin>();
+	public static Set<Checkin> filterByHours(Set<Integer> hours, Collection<Checkin> ckns){
+		Set<Checkin> cks = new HashSet<Checkin>();
 		for(Checkin ck:ckns){
 			if(hours.contains(ck.time.getHours())&&!cks.contains(ck))
 				cks.add(ck);
